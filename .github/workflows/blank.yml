@@ -12,9 +12,11 @@ jobs:
         run: echo ${{ github.sha }} > Release.txt1
       - name: Test
         run: cat Release.txt1
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: "marvinpinto/action-automatic-releases@latest"
         with:
-          args: Release.txt1
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            Release.txt1
